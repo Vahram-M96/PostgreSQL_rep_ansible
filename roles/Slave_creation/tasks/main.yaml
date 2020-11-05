@@ -1,0 +1,50 @@
+---
+
+
+  - name: Copy Dockerfile
+    template:
+      src: roles/Slave_creation/templates/Dockerfile 
+      dest: /tmp
+
+  - name: Copy docker-entrypoint.sh 
+    copy:
+      src: roles/Slave_creation/files/docker-entrypoint.sh 
+      dest: /tmp
+
+  - name: Copy gosu binary 
+    copy:
+      src: roles/Slave_creation/files/gosu
+      dest: /tmp
+
+
+
+  - name: Build an slave image 
+    docker_image:
+      path: /tmp
+      name: "{{ slave_img_name }}"
+
+  - name: Creating slave container
+    docker_container:
+      name: "{{ slave_cont_name }}"
+      image: "{{ slave_img_name }}"
+      env:
+        POSTGRES_USER="{{ pg_user }}"
+        POSTGRES_PASSWORD="{{ pg_password }}"
+        POSTGRES_DB="{{ pg_database }}"
+        PG_REP_USER="{{ pg_rep_user }}"
+        PG_REP_PASSWORD="{{ pg_rep_password }}"
+        PG_MASTER_HOST="{{ master_host_ip }}"
+      ports:
+        - 5432:5432
+      volumes:
+        - "{{ volume_name }}:/var/lib/postgresql/data"
+      networks:
+        - name: "{{ network_name }}"
+      state: started
+
+
+
+
+
+
+

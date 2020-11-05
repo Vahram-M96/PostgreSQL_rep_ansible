@@ -1,0 +1,40 @@
+
+#Docker network name for containers
+network_name: psotgre                          
+
+#The name of volume for containers
+volume_name: pg_volume    
+
+#The name of master container                 
+master_cont_name: master                  
+
+#Postgre username
+pg_user: postgres
+
+#Postgre user password                            
+pg_password: password
+
+#Postgre default database name                             
+pg_database: postgre    
+
+#Postgresql reolication user username                   
+pg_rep_user: rep         
+                           
+#Password of replication user
+pg_rep_password: 123456  
+
+#Slave server image name
+slave_img_name: slave
+
+#Master server image name
+master_img_name: master 
+                     
+#Base image name        
+base_img_name: postgres:12.3        
+
+#Slave container name           
+slave_cont_name: slave 
+
+#Master's ip address
+master_host_ip: 10.1.0.2
+

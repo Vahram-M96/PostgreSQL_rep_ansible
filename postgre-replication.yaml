@@ -1,0 +1,31 @@
+# Install docker and python-docker packeges. 
+
+ - name: setup pre-requisites
+   hosts: servers
+   become: yes
+   roles:
+     - Docker_installation
+
+
+# creating necessary volumes and network
+ - name: Creating network and volume
+   hosts: servers
+   become: yes
+   roles:
+     - Network_volume_creation
+
+# Master creation
+ - name: Creating Master container 
+   hosts: master
+   become: yes
+   roles:
+     - Master_creation
+
+# Slave creation
+ - name: Creating slave container 
+   hosts: slave
+   become: yes
+   roles:
+     - Slave_creation
+
+
